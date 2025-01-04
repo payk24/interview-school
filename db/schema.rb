@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_04_204923) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_04_211604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_04_204923) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.bigint "teacher_subject_id", null: false
+    t.bigint "classroom_id", null: false
+    t.time "start_at"
+    t.time "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["classroom_id"], name: "index_sections_on_classroom_id"
+    t.index ["teacher_subject_id"], name: "index_sections_on_teacher_subject_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -52,6 +63,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_04_204923) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "sections", "classrooms"
+  add_foreign_key "sections", "teacher_subjects"
   add_foreign_key "teacher_subjects", "subjects"
   add_foreign_key "teacher_subjects", "teachers"
 end
