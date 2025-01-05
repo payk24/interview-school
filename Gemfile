@@ -47,8 +47,10 @@ group :development, :test do
 
   gem "rspec-rails"
   gem "rubocop"
-  gem "factory_bot_rails"
   gem "faker"
+  gem "factory_bot_rails"
 end
 
 gem "active_model_serializers"
+gem "prawn"
+gem "prawn-table"

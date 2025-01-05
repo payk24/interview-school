@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
-  resources :student_sections
-  resources :sections
-  resources :teacher_subjects
-  resources :students
-  resources :classrooms
-  resources :subjects
-  resources :teachers
+  scope :api do
+    namespace :v1 do
+      resources :sections
+      resources :students do
+        resources :schedules, only: %i[index show create destroy] do
+          get :export, on: :collection, defaults: { format: :pdf }
+        end
+      end
+      resources :classrooms
+      resources :subjects
+      resources :teachers
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

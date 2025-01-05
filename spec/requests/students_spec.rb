@@ -32,33 +32,33 @@ RSpec.describe "/students", type: :request do
     {}
   }
 
-  describe "GET /index" do
+  describe "GET /api/v1/index" do
     it "renders a successful response" do
       Student.create! valid_attributes
-      get students_url, headers: valid_headers, as: :json
+      get v1_students_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
+  describe "GET /api/v1/show" do
     it "renders a successful response" do
       student = Student.create! valid_attributes
-      get student_url(student), as: :json
+      get v1_student_url(student), as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "POST /create" do
+  describe "POST /api/v1/create" do
     context "with valid parameters" do
       it "creates a new Student" do
         expect {
-          post students_url,
+          post v1_students_url,
                params: { student: valid_attributes }, headers: valid_headers, as: :json
         }.to change(Student, :count).by(1)
       end
 
       it "renders a JSON response with the new student" do
-        post students_url,
+        post v1_students_url,
              params: { student: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -68,13 +68,13 @@ RSpec.describe "/students", type: :request do
     context "with invalid parameters" do
       it "does not create a new Student" do
         expect {
-          post students_url,
+          post v1_students_url,
                params: { student: invalid_attributes }, as: :json
         }.to change(Student, :count).by(0)
       end
 
       it "renders a JSON response with errors for the new student" do
-        post students_url,
+        post v1_students_url,
              params: { student: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -82,7 +82,7 @@ RSpec.describe "/students", type: :request do
     end
   end
 
-  describe "PATCH /update" do
+  describe "PATCH /api/v1/update" do
     context "with valid parameters" do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
@@ -90,7 +90,7 @@ RSpec.describe "/students", type: :request do
 
       it "updates the requested student" do
         student = Student.create! valid_attributes
-        patch student_url(student),
+        patch v1_student_url(student),
               params: { student: new_attributes }, headers: valid_headers, as: :json
         student.reload
         skip("Add assertions for updated state")
@@ -98,7 +98,7 @@ RSpec.describe "/students", type: :request do
 
       it "renders a JSON response with the student" do
         student = Student.create! valid_attributes
-        patch student_url(student),
+        patch v1_student_url(student),
               params: { student: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -108,7 +108,7 @@ RSpec.describe "/students", type: :request do
     context "with invalid parameters" do
       it "renders a JSON response with errors for the student" do
         student = Student.create! valid_attributes
-        patch student_url(student),
+        patch v1_student_url(student),
               params: { student: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -116,11 +116,11 @@ RSpec.describe "/students", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE /api/v1/destroy" do
     it "destroys the requested student" do
       student = Student.create! valid_attributes
       expect {
-        delete student_url(student), headers: valid_headers, as: :json
+        delete v1_student_url(student), headers: valid_headers, as: :json
       }.to change(Student, :count).by(-1)
     end
   end

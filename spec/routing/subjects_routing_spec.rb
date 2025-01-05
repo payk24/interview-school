@@ -1,30 +1,30 @@
 require "rails_helper"
 
-RSpec.describe SubjectsController, type: :routing do
+RSpec.describe V1::SubjectsController, type: :routing do
   describe "routing" do
     it "routes to #index" do
-      expect(get: "/subjects").to route_to("subjects#index")
+      expect(get: "/api/v1/subjects").to route_to("v1/subjects#index")
     end
 
     it "routes to #show" do
-      expect(get: "/subjects/1").to route_to("subjects#show", id: "1")
+      expect(get: "/api/v1/subjects/1").to route_to("v1/subjects#show", id: "1")
     end
 
 
     it "routes to #create" do
-      expect(post: "/subjects").to route_to("subjects#create")
+      expect(post: "/api/v1/subjects").to route_to("v1/subjects#create")
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/subjects/1").to route_to("subjects#update", id: "1")
+      expect(put: "/api/v1/subjects/1").to route_to("v1/subjects#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/subjects/1").to route_to("subjects#update", id: "1")
+      expect(patch: "/api/v1/subjects/1").to route_to("v1/subjects#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/subjects/1").to route_to("subjects#destroy", id: "1")
+      expect(delete: "/api/v1/subjects/1").to route_to("v1/subjects#destroy", id: "1")
     end
   end
 end

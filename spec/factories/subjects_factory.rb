@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subject do
-    name { "MyString" }
-    description { "MyText" }
+    name { Faker::Educator.subject }
+    description { "" }
   end
 end

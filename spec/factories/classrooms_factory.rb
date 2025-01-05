@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :classroom do
     number { 1 }
-    name { "MyString" }
+    name { Faker::Restaurant.name }
   end
 end

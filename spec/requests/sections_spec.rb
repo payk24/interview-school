@@ -32,33 +32,33 @@ RSpec.describe "/sections", type: :request do
     {}
   }
 
-  describe "GET /index" do
+  describe "GET /api/v1/index" do
     it "renders a successful response" do
       Section.create! valid_attributes
-      get sections_url, headers: valid_headers, as: :json
+      get v1_sections_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
+  describe "GET /api/v1/show" do
     it "renders a successful response" do
       section = Section.create! valid_attributes
-      get section_url(section), as: :json
+      get v1_section_url(section), as: :json
       expect(response).to be_successful
     end
   end
 
-  describe "POST /create" do
+  describe "POST /api/v1/create" do
     context "with valid parameters" do
       it "creates a new Section" do
         expect {
-          post sections_url,
+          post v1_sections_url,
                params: { section: valid_attributes }, headers: valid_headers, as: :json
         }.to change(Section, :count).by(1)
       end
 
       it "renders a JSON response with the new section" do
-        post sections_url,
+        post v1_sections_url,
              params: { section: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -68,13 +68,13 @@ RSpec.describe "/sections", type: :request do
     context "with invalid parameters" do
       it "does not create a new Section" do
         expect {
-          post sections_url,
+          post v1_sections_url,
                params: { section: invalid_attributes }, as: :json
         }.to change(Section, :count).by(0)
       end
 
       it "renders a JSON response with errors for the new section" do
-        post sections_url,
+        post v1_sections_url,
              params: { section: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -82,7 +82,7 @@ RSpec.describe "/sections", type: :request do
     end
   end
 
-  describe "PATCH /update" do
+  describe "PATCH /api/v1/update" do
     context "with valid parameters" do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
@@ -90,7 +90,7 @@ RSpec.describe "/sections", type: :request do
 
       it "updates the requested section" do
         section = Section.create! valid_attributes
-        patch section_url(section),
+        patch v1_section_url(section),
               params: { section: new_attributes }, headers: valid_headers, as: :json
         section.reload
         skip("Add assertions for updated state")
@@ -98,7 +98,7 @@ RSpec.describe "/sections", type: :request do
 
       it "renders a JSON response with the section" do
         section = Section.create! valid_attributes
-        patch section_url(section),
+        patch v1_section_url(section),
               params: { section: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -108,7 +108,7 @@ RSpec.describe "/sections", type: :request do
     context "with invalid parameters" do
       it "renders a JSON response with errors for the section" do
         section = Section.create! valid_attributes
-        patch section_url(section),
+        patch v1_section_url(section),
               params: { section: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -116,11 +116,11 @@ RSpec.describe "/sections", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE /api/v1/destroy" do
     it "destroys the requested section" do
       section = Section.create! valid_attributes
       expect {
-        delete section_url(section), headers: valid_headers, as: :json
+        delete v1_section_url(section), headers: valid_headers, as: :json
       }.to change(Section, :count).by(-1)
     end
   end

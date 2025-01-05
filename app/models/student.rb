@@ -1,3 +1,4 @@
 class Student < ApplicationRecord
-  has_many :student_sections
+  has_many :schedules
+  has_many :sections, through: :schedules
 end
